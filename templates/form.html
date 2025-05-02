@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<nav class="navbar">
+  <div class="logo">پروژه انسان</div>
+
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <div class="nav-links">
+    <a href="#" id="conceptBtn">مفاهیم</a>
+    <a href="#" id="aboutBtn">مانیفست (بیانیه)</a>
+  </div>
+</nav>
+
+<!-- Concept Modal -->
+<div id="conceptModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="conceptClose">&times;</span>
+    <h3>یک مفهوم انتخاب کنید:</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li><button class="concept-choice" data-value="عشق">عشق</button></li>
+      <li><button class="concept-choice" data-value="عدالت">عدالت</button></li>
+      <li><button class="concept-choice" data-value="آزادی">آزادی</button></li>
+    </ul>
+  </div>
+</div>
+
+<!-- About Modal -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="aboutClose">&times;</span>
+    <p>{{ manifest }}</p>
+  </div>
+</div>
+
+<div class="body">
+  <div class="container mt-5" dir="rtl">
+    <h1 class="mb-4">فرم تعریف مفاهیم</h1>
+
+    <form method="POST" id="definitionForm">
+      {% csrf_token %}
+      <div class="input" id="selectedConceptContainer" style="display: none;">
+        <label class="form-label">مفهوم انتخاب شده:</label><br>
+        <div id="selectedConceptDisplay" style="font-weight: bold; font-size: 24px; padding: 4px 0; color: #C52233;"></div>
+      </div>      
+      <input type="hidden" name="concept" id="conceptInput" value="عشق">  <!-- hidden input -->
+
+      <div class="input">
+        <label for="phoneInput" class="form-label">شماره موبایل:</label><br>
+        <input type="text" name="phone" id="phoneInput" class="form-control" required>
+      </div>
+
+      <div class="input">
+        <label for="responseText" class="form-label">پاسخ:</label><br>
+        <textarea name="text" id="responseText" class="form-control" rows="5" required></textarea>
+      </div>
+
+      <div id="extraFields" style="display: none;">
+        <div class="input">
+          <label class="form-label">نام:</label><br>
+          <input type="text" name="first_name" class="form-control">
+        </div>
+
+        <div class="input">
+          <label class="form-label">نام خانوادگی:</label><br>
+          <input type="text" name="last_name" class="form-control">
+        </div>
+
+        <div class="input">
+          <label class="form-label">سن:</label><br>
+          <input type="number" name="age" class="form-control">
+        </div>
+
+        <div class="input">
+          <label class="form-label">جنسیت:</label><br>
+          <select name="gender" class="form-select">
+            <option value="1">مرد</option>
+            <option value="2">زن</option>
+            <option value="3">دیگر</option>
+          </select>
+        </div>
+
+        <div class="input">
+          <label class="form-label">کشور:</label><br>
+          <input type="text" name="country" class="form-control">
+        </div>
+
+        <div class="input">
+          <label class="form-label">شهر:</label><br>
+          <input type="text" name="city" class="form-control">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-top: 24px;">ارسال</button>
+    </form>
+  </div>
+  
+</div>
+
+<div style="display: flex; text-align:center; justify-content: center;">
+  <span><p>ایده‌پردازی و توسعه: <strong><a href="https://www.mohammadmahdish.ir" target="_blank" style="text-decoration: none; color: #C52233;">mohammadmahdish.ir</a></strong></p><span>
+</div>
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 400px;
+}
+.close {
+  float: left;
+  font-size: 24px;
+  cursor: pointer;
+}
+.concept-choice {
+  background: #f3f3f3;
+  border: none;
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  text-align: right;
+  font-family: inherit;
+  cursor: pointer;
+}
+.concept-choice:hover {
+  background: #e0e0e0;
+}
+</style>
+
+<script>
+  const phoneInput = document.getElementById('phoneInput');
+  const extraFields = document.getElementById('extraFields');
+
+  phoneInput.addEventListener('blur', () => {
+    const phone = phoneInput.value;
+    if (!phone) return;
+
+    fetch(`/ajax/check-user/?phone=${phone}`)
+      .then(res => res.json())
+      .then(data => {
+        extraFields.style.display = data.exists ? 'none' : 'block';
+      });
+  });
+
+  // Modals
+  const conceptModal = document.getElementById("conceptModal");
+  const conceptBtn = document.getElementById("conceptBtn");
+  const conceptClose = document.getElementById("conceptClose");
+
+  const aboutModal = document.getElementById("aboutModal");
+  const aboutBtn = document.getElementById("aboutBtn");
+  const aboutClose = document.getElementById("aboutClose");
+
+  conceptBtn.onclick = () => conceptModal.style.display = "block";
+  conceptClose.onclick = () => conceptModal.style.display = "none";
+  aboutBtn.onclick = () => aboutModal.style.display = "block";
+  aboutClose.onclick = () => aboutModal.style.display = "none";
+
+  window.onclick = (event) => {
+    if (event.target === conceptModal) conceptModal.style.display = "none";
+    if (event.target === aboutModal) aboutModal.style.display = "none";
+  };
+
+  // Set concept input when selected
+  document.querySelectorAll('.concept-choice').forEach(button => {
+    button.addEventListener('click', () => {
+      const concept = button.getAttribute('data-value');
+      document.getElementById('conceptInput').value = concept;
+        document.getElementById('selectedConceptDisplay').textContent = concept;
+        document.getElementById('selectedConceptContainer').style.display = 'block';
+        conceptModal.style.display = 'none';
+
+      conceptModal.style.display = 'none';
+    });
+  });
+
+   // Show default concept if already set
+   const defaultConcept = document.getElementById('conceptInput').value;
+   if (defaultConcept) {
+     document.getElementById('selectedConceptDisplay').textContent = defaultConcept;
+     document.getElementById('selectedConceptContainer').style.display = 'block';
+   }
+</script>
+
+{% endblock %}

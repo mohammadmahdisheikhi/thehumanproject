@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-03 21:46+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\form\forms.py:15
+msgid "Phone Number"
+msgstr ""
+
+#: .\form\forms.py:16
+msgid "First Name"
+msgstr ""
+
+#: .\form\forms.py:17
+msgid "Last Name"
+msgstr ""
+
+#: .\form\forms.py:18
+msgid "Age"
+msgstr ""
+
+#: .\form\forms.py:19
+msgid "Gender"
+msgstr ""
+
+#: .\form\forms.py:20
+msgid "Country"
+msgstr ""
+
+#: .\form\forms.py:21
+msgid "City"
+msgstr ""
+
+#: .\form\forms.py:33
+msgid "Response"
+msgstr ""
+
+#: .\form\models.py:7
+msgid "Manifest"
+msgstr ""
+
+#: .\form\models.py:10
+msgid "No manifest"
+msgstr ""

@@ -7,6 +7,9 @@ dist/
 build/
 *.log
 .env
+/env
+/env/
+env/
 
 # Django
 *.sqlite3

@@ -1,5 +1,8 @@
+# --- form/forms.py ---
 from django import forms
 from register.models import CustomUser, Gender, UserResponse
+from django.utils.translation import gettext_lazy as _
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -8,11 +11,15 @@ class UserProfileForm(forms.ModelForm):
         widgets = {
             'gender': forms.Select(choices=Gender.choices),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # No need for city queryset logic anymore — both are CharFields now
-        # You may optionally set placeholders or input styles here if desired
+        labels = {
+            'phone': _('Phone Number'),
+            'first_name': _('First Name'),
+            'last_name': _('Last Name'),
+            'age': _('Age'),
+            'gender': _('Gender'),
+            'country': _('Country'),
+            'city': _('City'),
+        }
 
 
 class UserResponseForm(forms.ModelForm):
@@ -21,4 +28,7 @@ class UserResponseForm(forms.ModelForm):
         fields = ['text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 5}),
+        }
+        labels = {
+            'text': _('Response'),
         }

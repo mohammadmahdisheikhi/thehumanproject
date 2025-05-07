@@ -7,7 +7,8 @@ from .models import FormPage
 # Create your views here.
 
 def index(request):
-    
+
+    concepts = ["عشق", "عدالت", "آزادی"]
     manifest = FormPage.objects.first()
 
     if request.method == 'POST':
@@ -39,7 +40,7 @@ def index(request):
 
         return redirect('index')
 
-    return render(request, 'form.html', {'manifest': manifest})
+    return render(request, 'form.html', {'manifest': manifest, 'concepts': concepts,})
 
 
 def check_user_exists(request):

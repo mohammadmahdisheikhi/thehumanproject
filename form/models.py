@@ -1,9 +1,10 @@
+# --- form/models.py ---
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
 
 class FormPage(models.Model):
-    manifest = models.TextField(null=True)
+    manifest = models.TextField(_('Manifest'), null=True)
 
     def __str__(self):
-        return self.manifest
+        return self.manifest or _('No manifest')

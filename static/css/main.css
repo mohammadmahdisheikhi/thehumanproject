@@ -1,8 +1,14 @@
 .body {
     width: auto;
     padding: 72px 320px;
-    background-color: #f9f9f9
 }
+ 
+ body {
+    background: radial-gradient(circle at top left, rgba(255, 183, 197, 0.3), transparent 70%),
+                radial-gradient(circle at bottom right, rgba(173, 216, 230, 0.3), transparent 70%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 
 input {
     height: 36px;
@@ -91,7 +97,6 @@ select:focus {
   .body {
     width: auto;
     padding: 24px 12px;
-    background-color: #f9f9f9
   }
 
   input {
@@ -146,7 +151,6 @@ select:focus {
     .body {
     width: auto;
     padding: 64px 96px;
-    background-color: #f9f9f9
   }
 
   input {
@@ -202,7 +206,6 @@ select:focus {
     .body {
     width: auto;
     padding: 72px 320px;
-    background-color: #f9f9f9
   }
 }
 
